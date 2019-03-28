@@ -37,5 +37,5 @@ namespace VGA {
 	void print(uint32_t number, Color c = WHITE);
 	//void print(sint32_t number, Color c = WHITE);
 	
-	void println(const char* text, Color c = WHITE);
+	void println(const char* text = "", Color c = WHITE);
 }

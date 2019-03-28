@@ -34,7 +34,7 @@ namespace VGA {
 		}
 		
 		for (signed char i = len - 1; i >= 0; i--) { // TODO fix this
-			putchar(buffer[i]);
+			putchar(buffer[i], c);
 		}
 	}
 	

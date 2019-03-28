@@ -1,15 +1,34 @@
 WARNINGS := -Wall -Wextra -Werror
-COMPILER := i686-elf-g++
+CPP_COMPILER := i686-elf-g++
+ASSEMBLER := nasm
+PROJDIRS := src
 
-CPPSRC := kernel.cpp vgatext.cpp
-CPPFLAGS := -std=c++11 -ffreestanding -mno-red-zone -fno-exceptions -nostdlib -fno-rtti
-LINKER := link.ld
+CPPSRC := $(shell find $(PROJDIRS) -type f -name \*.cpp)
+ASMSRC := $(shell find $(PROJDIRS) -type f -name \*.asm)
+
+OBJFILES := $(patsubst %.cpp, %.o, $(CPPSRC)) $(patsubst %.asm, %.asm_o, $(ASMSRC))
+
+CPPFLAGS := -std=c++11 -O2 -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti
+LINKERFLAGS := -nostdlib
+ASMFLAGS := -f elf32
+LINKER := src/link.ld
 EXEC := os
 
-all:
-	nasm boot.asm -f elf32 -o boot.o
-	nasm io.asm -f elf32 -o io.o
-	$(COMPILER) $(CPPSRC) io.o boot.o $(CPPFLAGS) -o $(EXEC) -T $(LINKER)
+.PHONY: all, run
+
+%.o: %.cpp
+	$(CPP_COMPILER) $< $(WARNINGS) $(CPPFLAGS) -c -o $@
+	
+%.asm_o: %.asm
+	$(ASSEMBLER) $< $(ASMFLAGS) -o $@
+
+all: $(OBJFILES)
+	$(CPP_COMPILER) $(OBJFILES) $(LINKERFLAGS) -o $(EXEC) -T $(LINKER)
+	
+clean:
+	-@rm $(OBJFILES) $(EXEC)
+	
+# Misc
 run:
 	qemu-system-i386 $(EXEC)
 	

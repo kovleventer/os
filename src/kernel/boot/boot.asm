@@ -3,7 +3,8 @@ section .boot
 global boot
 boot:
 	
-	%include "a20.asm"
+	; TODO fix this
+	%include "src/kernel/boot/a20.asm"
 	
 	mov ax, 0x03
 	int 0x10

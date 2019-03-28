@@ -3,4 +3,7 @@
 
 os
 *.o
-*.d
+*.asm_o
+
+*.kate-swp
+*.swp
