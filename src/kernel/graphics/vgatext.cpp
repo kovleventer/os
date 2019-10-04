@@ -20,7 +20,7 @@ namespace VGA {
 		}
 	}
 	
-	void print(uint32_t number, Color c) {
+	void print(uint32_t number, uint8_t base, Color c) {
 		char buffer[PRINT_BUFFER_SIZE];
 		uint8_t len = 0;
 		
@@ -28,12 +28,23 @@ namespace VGA {
 			buffer[len++] = '0';
 		} else {
 			while (number > 0) {
-				buffer[len++] = number % 10 + '0';
-				number /= 10;
+				uint32_t mod = number % base;
+				buffer[len++] = mod >= DEC ? 'A' + mod - DEC : '0' + mod;
+				number /= base;
 			}
 		}
 		
-		for (signed char i = len - 1; i >= 0; i--) { // TODO fix this
+		if (base == HEX) {
+			putchar('0');
+			putchar('x');
+		} else if (base == BIN) {
+			putchar('b');
+			while (len < 8) {
+				buffer[len++] = '0';
+			}
+		}
+		
+		for (int8_t i = len - 1; i >= 0; i--) {
 			putchar(buffer[i], c);
 		}
 	}

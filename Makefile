@@ -1,4 +1,5 @@
 WARNINGS := -Wall -Wextra -Werror
+#WARNINGS := -w
 CPP_COMPILER := i686-elf-g++
 ASSEMBLER := nasm
 PROJDIRS := src
@@ -8,7 +9,7 @@ ASMSRC := $(shell find $(PROJDIRS) -type f -name \*.asm)
 
 OBJFILES := $(patsubst %.cpp, %.o, $(CPPSRC)) $(patsubst %.asm, %.asm_o, $(ASMSRC))
 
-CPPFLAGS := -std=c++11 -O2 -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti
+CPPFLAGS := -std=c++17 -O2 -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti
 LINKERFLAGS := -nostdlib
 ASMFLAGS := -f elf32
 LINKER := src/link.ld

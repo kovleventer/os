@@ -20,7 +20,7 @@ namespace IO {
 	inline uint32_t read_dword(uint16_t port) {
 		uint32_t value;
 		asm volatile (
-			"inl %%dx, %%eal;" : "=a" (value) : "d" (port)
+			"inl %%dx, %%eax;" : "=a" (value) : "d" (port)
 		);
 		return value;
 	}
