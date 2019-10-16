@@ -28,4 +28,13 @@ namespace CPU {
 	uint8_t get_initialACICID();
 	uint32_t get_extendedFeatureFlags();
 	uint32_t get_featureFlags();
+	
+	bool ext_SSE3();
+	bool ext_PCLMULQDQ();
+	bool ext_DTES64();
+	bool ext_MONITOR();
+	bool ext_VMX();
+	bool ext_RDRAND();
+	
+	bool ext_FPU();
 }

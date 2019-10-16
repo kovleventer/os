@@ -16,6 +16,14 @@ void kmain() {
 	VGA::print((uint32_t)CPU::get_model());
 	VGA::print("\nFamily: ");
 	VGA::print((uint32_t)CPU::get_family());
+	VGA::print("\nVMX: ");
+	VGA::print(CPU::ext_VMX());
+	VGA::print("\nSSE3: ");
+	VGA::print(CPU::ext_SSE3());
+	VGA::print("\nRDRAND: ");
+	//CPU::ext_RDRAND();
+	VGA::print(CPU::ext_RDRAND());
+	//VGA::print("A");
 	VGA::println();
 	
 	
@@ -31,7 +39,7 @@ void kmain() {
 			VGA::print(input64, VGA::BIN);
 			VGA::println();
 			for (uint8_t i = 0; i < 24; i++) VGA::println();
-			uint32_t iodev = IO::read_byte(0x60);
+			/**uint32_t iodev =*/ IO::read_byte(0x60);
 			//iodev++;
 			/*int* a = (int*)0x7c00;
 			*a = 0;*/
